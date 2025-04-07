@@ -5,6 +5,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class MazeSolver {
     private Maze maze;
@@ -32,13 +33,53 @@ public class MazeSolver {
         return null;
     }
 
+    // Method to get all possible cells to explore
+    public ArrayList<MazeCell> cellsToExplore(MazeCell loc)
+    {
+        // Arraylist of possible cells to explore
+        ArrayList<MazeCell> toExplore = new ArrayList<MazeCell>();
+
+        // Location
+        int row = loc.getRow();
+        int col = loc.getCol();
+
+        // Checks cell to the North
+        if(maze.isValidCell(row-1,col))
+        {
+            toExplore.add(maze.getCell(row-1, col));
+        }
+        // Checks cell to the East
+        if(maze.isValidCell(row,col+1))
+        {
+            toExplore.add(maze.getCell(row, col+1));
+        }
+        // Checks cell to the South
+        if(maze.isValidCell(row+1,col))
+        {
+            toExplore.add(maze.getCell(row+1, col));
+        }
+        // Checks to the West
+        if(maze.isValidCell(row,col-1))
+        {
+            toExplore.add(maze.getCell(row, col-1));
+        }
+
+        return toExplore;
+    }
+
     /**
      * Performs a Depth-First Search to solve the Maze
      * @return An ArrayList of MazeCells in order from the start to end cell
      */
     public ArrayList<MazeCell> solveMazeDFS() {
         // TODO: Use DFS to solve the maze
+        // Stack for next moves
+        Stack<MazeCell> nextMove = new Stack<MazeCell>();
+
+        ArrayList<MazeCell> visited = new ArrayList<MazeCell>();
+
         // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
+
         return null;
     }
 
