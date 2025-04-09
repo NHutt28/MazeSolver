@@ -42,8 +42,10 @@ public class MazeSolver {
         // While still going backwards
         while (!(current == null))
         {
-            // Moves the move
+            // Adds the move leading up to the end to the arraylist
             path.add(0,current);
+            // Sets current to the location before
+            current = current.getParent();
         }
 
 
