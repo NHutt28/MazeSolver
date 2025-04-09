@@ -76,35 +76,40 @@ public class MazeSolver {
 
         // Stack for next moves
         Stack<MazeCell> nextMove = new Stack<MazeCell>();
-        ArrayList<MazeCell> visited = new ArrayList<MazeCell>();
 
         // Start and end cells from the maze
         MazeCell start = maze.getStartCell();
         MazeCell end = maze.getEndCell();
 
+        // First move is start position and it has been explored
         nextMove.push(start);
         start.setExplored(true);
 
+        // While there are still places to explore
         while(!nextMove.isEmpty()) {
+            // Move to next move
             MazeCell current = nextMove.pop();
-            // If program is at the end
+            // If program is at the end find solution
             if (current == end) {
                 return getSolution();
             }
-            // Find all neighbours
+            // Find all neighbours and next moves
             ArrayList<MazeCell> moves = cellsToExplore(current);
+            // Explore every move in the possible moves list
             for(MazeCell move: moves)
             {
                 if(!move.isExplored())
                 {
+                    // Make sure don't revisit same place
                     move.setExplored(true);
+                    // Register pathway to end
                     move.setParent(current);
+                    // Add move to nextMove list
                     nextMove.push(move);
                 }
             }
-
-
         }
+        // If can't find end - it will normally - return null
         return null;
     }
 
