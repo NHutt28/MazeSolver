@@ -1,6 +1,6 @@
 /**
  * Solves the given maze using DFS or BFS
- * @author Ms. Namasivayam
+ * @author Ms. Namasivayam & Neil Hutton
  * @version 03/10/2023
  */
 
@@ -49,7 +49,7 @@ public class MazeSolver {
         }
 
 
-        return null;
+        return path;
     }
 
     // Method to get all possible cells to explore
@@ -128,8 +128,7 @@ public class MazeSolver {
                 }
             }
         }
-        // If it can't find end - it will normally - return null
-        return null;
+        return getSolution();
     }
 
     /**
@@ -173,8 +172,7 @@ public class MazeSolver {
                 }
             }
         }
-        // If it can't find end - it will normally - return null
-        return null;
+        return getSolution();
         // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
     }
 
