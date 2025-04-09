@@ -73,13 +73,38 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> solveMazeDFS() {
         // TODO: Use DFS to solve the maze
+
         // Stack for next moves
         Stack<MazeCell> nextMove = new Stack<MazeCell>();
-
         ArrayList<MazeCell> visited = new ArrayList<MazeCell>();
 
-        // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
+        // Start and end cells from the maze
+        MazeCell start = maze.getStartCell();
+        MazeCell end = maze.getEndCell();
 
+        nextMove.push(start);
+        start.setExplored(true);
+
+        while(!nextMove.isEmpty()) {
+            MazeCell current = nextMove.pop();
+            // If program is at the end
+            if (current == end) {
+                return getSolution();
+            }
+            // Find all neighbours
+            ArrayList<MazeCell> moves = cellsToExplore(current);
+            for(MazeCell move: moves)
+            {
+                if(!move.isExplored())
+                {
+                    move.setExplored(true);
+                    move.setParent(current);
+                    nextMove.push(move);
+                }
+            }
+
+
+        }
         return null;
     }
 
