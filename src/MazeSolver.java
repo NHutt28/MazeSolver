@@ -6,6 +6,8 @@
 
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MazeSolver {
     private Maze maze;
@@ -30,6 +32,21 @@ public class MazeSolver {
     public ArrayList<MazeCell> getSolution() {
         // TODO: Get the solution from the maze
         // Should be from start to end cells
+
+        // Arraylist of moves to get to end
+        ArrayList<MazeCell> path = new ArrayList<MazeCell>();
+
+        // Trace from finish back to start
+        MazeCell current = maze.getEndCell();
+
+        // While still going backwards
+        while (!(current == null))
+        {
+            // Moves the move
+            path.add(0,current);
+        }
+
+
         return null;
     }
 
@@ -109,7 +126,7 @@ public class MazeSolver {
                 }
             }
         }
-        // If can't find end - it will normally - return null
+        // If it can't find end - it will normally - return null
         return null;
     }
 
@@ -119,8 +136,44 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> solveMazeBFS() {
         // TODO: Use BFS to solve the maze
-        // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
+
+        // Queue instead of stack because visit all possible locations
+        Queue<MazeCell> nextMove = new LinkedList<MazeCell>();
+        // Start and end cells from the maze
+        MazeCell start = maze.getStartCell();
+        MazeCell end = maze.getEndCell();
+
+        // First move is start position and it has been explored
+        nextMove.add(start);
+        start.setExplored(true);
+
+        // While there are still places to explore
+        while(!nextMove.isEmpty()) {
+            // Move to next move
+            MazeCell current = nextMove.remove();
+            // If program is at the end find solution
+            if (current == end) {
+                return getSolution();
+            }
+            // Find all neighbours and next moves
+            ArrayList<MazeCell> moves = cellsToExplore(current);
+            // Explore every move in the possible moves list
+            for(MazeCell move: moves)
+            {
+                if(!move.isExplored())
+                {
+                    // Make sure don't revisit same place
+                    move.setExplored(true);
+                    // Register pathway to end
+                    move.setParent(current);
+                    // Add move to nextMove list
+                    nextMove.add(move);
+                }
+            }
+        }
+        // If it can't find end - it will normally - return null
         return null;
+        // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
     }
 
     public static void main(String[] args) {
